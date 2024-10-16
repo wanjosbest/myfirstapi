@@ -1,0 +1,34 @@
+
+{%extends "base.html"%}
+{% block header%}
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css/">
+  <title>Login</title>
+{% endblock header%}
+{%block content%}
+{% for message in messages %}
+    <p class= "text-center">{{message}}</p>
+  {% endfor %}
+<div class="login-main"> 
+
+	<div class="login">
+		<form action="" method="post">
+			{%csrf_token%}
+			<label for="chk">Login</label>
+			<input type="text" name="username" placeholder="UserName" required="">
+			<input type="password" name="password" placeholder="Password" required="">
+			<button type="submit">Sign In</button>
+			<br/><br/>
+			<div style="color:white;">Forgot Password</div>
+			<button><a  href="{%url "signup"%}" style="text-decoration: none; color:white">Sign Up</a></button>
+
+			
+		</form>
+	</div>
+</div>
+	
+{%endblock content%}
+
+{%block footer%}
+{%endblock footer%}

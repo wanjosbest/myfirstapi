@@ -1,0 +1,15 @@
+
+<div class="container">
+<h2>Log In </h2>
+<form action=""method="post">
+    {% csrf_token %}
+   UserName<p class="login_username"placeholder="UserName">{{form.username}}</p>
+    <br/>
+   Password <p class="login_password" placeholder="Password">{{form.password}}</p>
+    <br/>
+    <button type="submit" class="btn btn-success" style="background-color: #5cb85c;">
+        Log In
+    </button>
+</form>
+<h4>Yet to register? <a href="{%url "signup"%}">SignUp</a></h4>
+</div>

@@ -1,0 +1,14 @@
+
+
+{%for Post in post %}
+<h4>{{Post.title}}</h4>
+<p>
+    <img src="{{Post.image.url}}"  alt="{{Post.title}}"style="width:300px;height:300px;">
+</p>
+<p>{{Post.category}}</p>
+<p>{{Post.title}}</p>
+<p>
+    {{Post.content}}
+</p>
+
+{%endfor%}

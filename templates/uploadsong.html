@@ -1,0 +1,12 @@
+
+{% if user.is_authenticated%}
+<form action="" method="post">
+  {% csrf_token %}
+    {{uploadform}}
+    <button type="submit" id="submit_btn">Upload</button>
+</form>
+{% else %}
+<div style="color:blue;">Please you are not Signed in</div> <button><a  href="{%url "signin"%}" style="text-decoration: none; color:white">Sign In</a></button>
+	
+
+{%endif%}
