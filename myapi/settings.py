@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'blogpost',
     'rest_framework',
     'corsheaders',
-
 ]
 
 MIDDLEWARE = [
@@ -91,8 +90,8 @@ WSGI_APPLICATION = 'myapi.wsgi.application'
   #  }
   # }
 
-
-  DATABASES = {
+  
+DATABASES = {
     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
