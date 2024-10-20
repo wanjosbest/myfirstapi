@@ -1,28 +1,63 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from api.serializers import PostSerializer
+from api.serializers import PostSerializer,UserSerializer
 from api.models import Post, songdetails
 from rest_framework import status
+from django.contrib.auth.models import User
 
 
 
 
-@api_view(["GET","POST"])
-def post_list(request):
+        
+#api user registration
+@api_view(["POST"])
+def registeruser(request,):
+    if request.method=="POST":
+        serializer=UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+#api user registration
+@api_view(["POST"])
+def loginuser(request):
+    if request.method=="POST":
+        serializer=UserSerializer(data=request.data)
+        user=User.objects.get("username")
+        if user.DOESNOTEXISTS():
+            return HttpResponse("username incorrect")
+        else:
+            return HttpResponse("username found")
+    return Response(serializer.data,status=status.HTTP_302_FOUND)
+
+ 
+
+
+#api post list
+@api_view(["GET"])
+def api_list(request):
     if request.method=="GET":
         title_list= Post.objects.all()
         serializer=PostSerializer(title_list, many=True)
         return Response(serializer.data)
-    elif request.method=="POST":
+    
+# api create blog post
+@api_view(["POST"])
+def apiblogpost(request):
+    if request.method=="POST":
         serializer=PostSerializer(data=request.data)
         if serializer.is_valid():
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
+            serializer.save()
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+ 
+
         
-@api_view(["GET","PUT","DELETE"])
-def postdetails(request,pk):
+# other  api practices  
+@api_view(["GET","POST","DELETE"])
+def postdetails(request,slug):
     try:
-        post=Post.objects.get(pk=pk)
+        post=Post.objects.get(slug=slug)
     except post.DoestNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -32,17 +67,20 @@ def postdetails(request,pk):
         serializer=PostSerializer(post)
         return Response(serializer.data)
     
-    elif request.method=="PUT":
+    elif request.method=="POST":
         serializer=PostSerializer(data=request.data)
-        
         if serializer.is_valid():
             serializer.save()
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
            
     elif request.method=="DELETE":
         post.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-        
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
+#list of all API
+def apipage(request):
+    return render(request,"apipage.html")
+        
 
 
 

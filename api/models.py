@@ -7,12 +7,11 @@ class category(models.Model):
 
     class Meta:
         verbose_name_plural="categories"
-
     def __str__(self):
       return self.title
 
 class Post(models.Model):
-    category=models.ForeignKey(category, related_name="category",null=True,on_delete=models.CASCADE)
+    category=models.ForeignKey(category, related_name="category",null=True,on_delete=models.CASCADE,default="Gospel")
     title=models.CharField(max_length=100,null=True)
     content=models.TextField(max_length=5000,null=True)
 

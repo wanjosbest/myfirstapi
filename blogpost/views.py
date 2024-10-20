@@ -71,7 +71,7 @@ def signin(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/profile/')
+            return redirect('/')
         else:
             messages.info(request, 'Try again! username or password is incorrect')
 
@@ -89,5 +89,6 @@ def songupload(request):
          messages.info(request,"You have successfully uploaded a song")
          return redirect("/profile/")
    return render(request,"uploadsong.html", {"uploadform":uploadform})
+
 
 
