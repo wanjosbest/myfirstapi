@@ -1,9 +1,11 @@
 
 {%extends "base.html"%}
+{% load static % }
 {% block header%}
   <meta charset="UTF-8">
   <title>Login</title>
-  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+
+<link rel="stylesheet" href="{% static 'main.css' %}">
   <title>Login</title>
 {% endblock header%}
 {%block content%}
