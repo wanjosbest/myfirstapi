@@ -18,17 +18,6 @@ def registeruser(request,):
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data,status=status.HTTP_201_CREATED)
-#api user registration
-@api_view(["POST"])
-def loginuser(request):
-    if request.method=="POST":
-        serializer=UserSerializer(data=request.data)
-        user=User.objects.get("username")
-        if user.DOESNOTEXISTS():
-            return HttpResponse("username incorrect")
-        else:
-            return HttpResponse("username found")
-    return Response(serializer.data,status=status.HTTP_302_FOUND)
 
  
 

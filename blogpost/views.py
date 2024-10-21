@@ -6,12 +6,15 @@ from api.models import Post
 from .forms import PostForm
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from . forms import songdetailsForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
  return render(request,"index.html")
 
+@login_required(login_url="signin")
 def createpost(request):
     form=PostForm()
 
@@ -58,6 +61,7 @@ def signup(request):
 
   return render(request,"register.html")
 
+@login_required(login_url="signin")
 def profile(request):
 
   return render(request,"profile.html")
@@ -68,15 +72,13 @@ def signin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-
         if user is not None:
-            login(request, user)
-            return redirect('/')
+          login(request, user)
+          return redirect('homepage')
         else:
             messages.info(request, 'Try again! username or password is incorrect')
-
     context = {}
-    return render(request, 'login.html', context)
+    return render(request,'login.html',context)
 
 #artist ssong upload
 
@@ -85,10 +87,12 @@ def songupload(request):
    if request.method=="POST":
       uploadform=songdetailsForm(request.POST)
       if uploadform.is_valid():
-         uploadform.save()
-         messages.info(request,"You have successfully uploaded a song")
-         return redirect("/profile/")
+          uploadform.save()
+      messages.info(request,"You have successfully uploaded a song")
+      return redirect("/profile/")
    return render(request,"uploadsong.html", {"uploadform":uploadform})
+
+
 
 
 

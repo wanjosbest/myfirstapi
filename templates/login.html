@@ -1,6 +1,5 @@
-
 {%extends "base.html"%}
-
+{% load static %}
 {% block header%}
   <meta charset="UTF-8">
   <title>Login</title>
@@ -11,7 +10,7 @@
 {%block content%}
 {% for message in messages %}
     <p class= "text-center">{{message}}</p>
-  {% endfor %}
+{% endfor %}
 <div class="login-main"> 
 
 	<div class="login">
