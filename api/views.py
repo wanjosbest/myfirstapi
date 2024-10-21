@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect,HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from api.serializers import PostSerializer,UserSerializer
+from api.serializers import PostSerializer,UserSerializer,UserloginSerializer
 from api.models import Post, songdetails
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.contrib import messages
+
 
 
 
@@ -18,6 +20,15 @@ def registeruser(request,):
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+@api_view(["POST"])
+def loginserialization(request):
+  if request.method=="POST":
+     serializer=UserloginSerializer(data=request.data)
+     if serializer.is_valid():
+        return HttpResponse("you are already logged in")
+  return Response(serializer.data, status=status.HTTP_302_FOUND)
+     
 
  
 
